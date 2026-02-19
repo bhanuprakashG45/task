@@ -315,32 +315,40 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                     ),
                     SizedBox(height: 20),
 
-                    Align(
-                      alignment: Alignment.bottomCenter,
-                      child: SizedBox(
-                        height: 50,
-                        width: double.infinity,
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color.fromARGB(
-                              255,
-                              16,
-                              126,
-                              216,
+                    ordervm.orderDetails.disablePurchase == false
+                        ? SizedBox()
+                        : Align(
+                            alignment: Alignment.bottomCenter,
+                            child: SizedBox(
+                              height: 50,
+                              width: double.infinity,
+                              child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: const Color.fromARGB(
+                                    255,
+                                    16,
+                                    126,
+                                    216,
+                                  ),
+                                ),
+                                onPressed: () {
+                                int amount =  int.tryParse(amountController.text.trim())??0;
+
+                                if(amount< ordervm.orderDetails.minAmount || amount > ordervm.orderDetails.maxAmount){
+                                  debugPrint("Amount is Invalid");
+                                }
+                                },
+                                child: Text(
+                                  "Pay Now ₹ ${ordervm.youpayAmount}",
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
                             ),
                           ),
-                          onPressed: () {},
-                          child: Text(
-                            "Pay Now ₹ ${ordervm.youpayAmount}",
-                            style: TextStyle(
-                              fontSize: 20,
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
                   ],
                 ),
               ),
